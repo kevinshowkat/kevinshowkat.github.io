@@ -1,0 +1,34 @@
+# Kevin Showkat
+
+> Public project index.
+
+## Primary Profile
+
+- GitHub: <https://github.com/kevinshowkat>
+- LinkedIn: <https://www.linkedin.com/in/kshowkat/>
+- Website: <https://kevinshowkat.github.io/>
+
+## Public Projects
+
+- [Brood](https://github.com/kevinshowkat/brood)
+  - Promptless, reference-first AI image generation and editing for developers.
+  - Start here: <https://github.com/kevinshowkat/brood#readme>
+  - Releases: <https://github.com/kevinshowkat/brood/releases>
+
+- [param_forge](https://github.com/kevinshowkat/param_forge)
+  - Terminal UI for cross-provider image-model experimentation.
+  - Start here: <https://github.com/kevinshowkat/param_forge#readme>
+
+- [oscillo-vision-reports](https://github.com/kevinshowkat/oscillo-vision-reports)
+  - Public reports comparing image-model behavior and preference outcomes.
+  - Start here: <https://github.com/kevinshowkat/oscillo-vision-reports#readme>
+
+- [superjumbo](https://github.com/kevinshowkat/superjumbo)
+  - Free-to-play sports prediction app.
+  - Start here: <https://github.com/kevinshowkat/superjumbo#readme>
+
+## Notes
+
+- This site is an index. Code and primary docs live in linked repositories.
+- Prefer repository README files, releases, and commit history for current status.
+- Expanded version: <https://kevinshowkat.github.io/llms-full.txt>

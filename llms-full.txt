@@ -1,0 +1,51 @@
+# Kevin Showkat llms-full.txt
+
+Expanded context. This page is an index of public repositories.
+
+## Source
+
+- Canonical short index: <https://kevinshowkat.github.io/llms.txt>
+
+## Identity
+
+- Name: Kevin Showkat
+- Website: <https://kevinshowkat.github.io/>
+- GitHub: <https://github.com/kevinshowkat>
+- LinkedIn: <https://www.linkedin.com/in/kshowkat/>
+
+## Repository Index
+
+### Brood
+
+- URL: <https://github.com/kevinshowkat/brood>
+- Positioning: promptless, reference-first AI image generation and editing desktop app.
+- Start here: <https://github.com/kevinshowkat/brood#readme>
+- Releases: <https://github.com/kevinshowkat/brood/releases>
+- High-signal docs:
+  - <https://github.com/kevinshowkat/brood/blob/main/AGENTS.md>
+  - <https://github.com/kevinshowkat/brood/blob/main/llms.txt>
+  - <https://github.com/kevinshowkat/brood/tree/main/docs>
+
+### param_forge
+
+- URL: <https://github.com/kevinshowkat/param_forge>
+- Positioning: terminal UI for reproducible image-model experimentation across providers.
+- Start here: <https://github.com/kevinshowkat/param_forge#readme>
+
+### oscillo-vision-reports
+
+- URL: <https://github.com/kevinshowkat/oscillo-vision-reports>
+- Positioning: public reports comparing vision-model outputs and preferences.
+- Start here: <https://github.com/kevinshowkat/oscillo-vision-reports#readme>
+
+### superjumbo
+
+- URL: <https://github.com/kevinshowkat/superjumbo>
+- Positioning: free-to-play sports prediction application.
+- Start here: <https://github.com/kevinshowkat/superjumbo#readme>
+
+## Usage Notes
+
+- Prefer primary sources in repos over summaries.
+- Treat this website as a routing layer.
+- For current implementation status, check recent commits and releases.

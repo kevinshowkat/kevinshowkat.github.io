@@ -3,28 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kevin Showkat | Image-First Experiments</title>
+  <title>Kevin Showkat</title>
   <meta
     name="description"
-    content="Kevin Showkat builds image-first experiments: Cue, shipped creative tools, and public model evals."
+    content="Kevin Showkat builds and ships software end to end: Meerkat (iOS social), a customer-acquisition control plane, and desktop tools for visual AI."
   >
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://kevinshowkat.github.io/">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Kevin Showkat">
-  <meta property="og:title" content="Kevin Showkat | Image-First Experiments">
+  <meta property="og:title" content="Kevin Showkat">
   <meta
     property="og:description"
-    content="Cue, shipped creative tooling, and public image-model evals by Kevin Showkat."
+    content="Ships software end to end: Meerkat, a customer-acquisition control plane, and desktop tools for visual AI."
   >
   <meta property="og:url" content="https://kevinshowkat.github.io/">
 
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Kevin Showkat | Image-First Experiments">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Kevin Showkat">
   <meta
     name="twitter:description"
-    content="Cue, shipped creative tooling, and public image-model evals by Kevin Showkat."
+    content="Ships software end to end: Meerkat, a customer-acquisition control plane, and desktop tools for visual AI."
   >
 
   <script type="application/ld+json">
@@ -42,595 +42,198 @@
 
   <style>
     :root {
-      color-scheme: light;
-      --bg: #faf7f3;
-      --surface: #eee8df;
-      --ink: #2c2520;
-      --secondary: #887b6f;
-      --accent: #c2553a;
-      --accent-hover: #d4613f;
-      --feature-bg: #2d4a3e;
-      --feature-ink: #faf7f3;
-      --warm-amber: #d4a574;
-      --rule: #d5cdc2;
-      --radius: 12px;
-      --max: 1080px;
+      color-scheme: dark;
+      --bg: #0b0c0f;
+      --panel: #101218;
+      --ink: #d9dbd6;
+      --mute: #7c8188;
+      --line: #262a33;
+      --acid: #c8ff4d;
+      --heat: #ff5d3a;
+      --max: 880px;
+      --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
     }
 
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
-      color: var(--ink);
       background: var(--bg);
-      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-size: 17px;
-      line-height: 1.47;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    img {
-      display: block;
-      max-width: 100%;
-    }
-
-    .page {
-      width: min(var(--max), calc(100% - 48px));
-      margin: 0 auto;
-      padding: 20px 0 80px;
-    }
-
-    /* ── Topbar ───────────────────────────────── */
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding-bottom: 20px;
-      margin-bottom: 100px;
-      border-bottom: 1px solid var(--rule);
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--secondary);
-    }
-
-    .topbar nav {
-      display: flex;
-      gap: 28px;
-    }
-
-    .topbar a {
-      transition: color 300ms ease;
-    }
-
-    .topbar a:hover {
       color: var(--ink);
+      font-family: var(--mono);
+      font-size: 15px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Typography ──────────────────────────── */
+    /* faint scanlines */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.014) 0px,
+        rgba(255, 255, 255, 0.014) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+      z-index: 2;
+    }
 
-    h1, h2, h3 {
+    a { color: var(--acid); text-decoration: none; border-bottom: 1px solid rgba(200, 255, 77, .35); }
+    a:hover { color: var(--bg); background: var(--acid); border-bottom-color: var(--acid); }
+
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 72px 20px 40px; position: relative; z-index: 3; }
+
+    header h1 {
+      font-size: clamp(30px, 6vw, 44px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #f2f3ef;
+      text-shadow: 1px 0 0 rgba(255, 93, 58, .55), -1px 0 0 rgba(77, 210, 255, .45);
+    }
+
+    header .tag { color: var(--mute); margin-top: 10px; max-width: 62ch; }
+    header .tag b { color: var(--ink); font-weight: 600; }
+
+    .cursor::after {
+      content: "▌";
+      color: var(--acid);
+      animation: blink 1.15s steps(1) infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+    @media (prefers-reduced-motion: reduce) { .cursor::after { animation: none; } }
+
+    section { margin-top: 56px; }
+
+    h2 {
+      font-size: 13px;
       font-weight: 600;
-      letter-spacing: -0.03em;
+      color: var(--mute);
+      text-transform: lowercase;
+      letter-spacing: .14em;
+      margin-bottom: 18px;
+    }
+    h2::before { content: "[ "; color: var(--heat); }
+    h2::after  { content: " ]"; color: var(--heat); }
+
+    .card {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 20px 22px;
+      margin-bottom: 14px;
     }
 
-    /* ── Hero ─────────────────────────────────── */
-
-    .hero {
-      text-align: center;
-      max-width: 680px;
-      margin: 0 auto 100px;
-      animation: hero-in 1s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-
-    @keyframes hero-in {
-      from {
-        opacity: 0;
-        transform: translateY(24px);
-      }
-    }
-
-    .eyebrow {
-      display: block;
-      margin-bottom: 16px;
-      color: var(--secondary);
-      font-size: 14px;
+    .card h3 { font-size: 16px; color: #f2f3ef; font-weight: 700; }
+    .card h3 .chip {
+      font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+      color: var(--heat);
+      border: 1px solid var(--heat);
+      padding: 1px 7px;
+      margin-left: 10px;
+      letter-spacing: .08em;
+      vertical-align: 2px;
+      white-space: nowrap;
     }
+    .card p { color: var(--mute); margin-top: 8px; }
+    .card p b { color: var(--ink); font-weight: 600; }
+    .card .links { margin-top: 12px; font-size: 13.5px; }
+    .card .links a { margin-right: 18px; }
 
-    h1 {
-      font-size: clamp(44px, 7vw, 80px);
-      line-height: 1.05;
-      margin-bottom: 20px;
-    }
+    .status { color: var(--acid); font-size: 12.5px; letter-spacing: .06em; margin-top: 10px; }
+    .status::before { content: "▲ "; color: var(--heat); }
 
-    .lede {
-      font-size: 21px;
-      line-height: 1.38;
-      color: var(--secondary);
-      max-width: 48ch;
-      margin: 0 auto 36px;
-    }
+    ul.plain { list-style: none; }
+    ul.plain li { padding: 7px 0; border-bottom: 1px dashed var(--line); color: var(--mute); }
+    ul.plain li:last-child { border-bottom: 0; }
 
-    .cta-row {
+    footer {
+      margin-top: 72px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: var(--mute);
+      font-size: 12.5px;
       display: flex;
-      justify-content: center;
       flex-wrap: wrap;
-      gap: 16px;
-      align-items: center;
+      gap: 8px 22px;
     }
-
-    /* ── Buttons ──────────────────────────────── */
-
-    .button, .button-secondary {
-      display: inline-flex;
-      align-items: center;
-      height: 44px;
-      padding: 0 24px;
-      border-radius: 980px;
-      font-size: 17px;
-      font-weight: 400;
-      transition: background 300ms ease;
-    }
-
-    .button {
-      background: var(--accent);
-      color: #fff;
-    }
-
-    .button:hover {
-      background: var(--accent-hover);
-    }
-
-    .button-secondary {
-      color: var(--accent);
-    }
-
-    .button-secondary:hover {
-      text-decoration: underline;
-    }
-
-    /* ── Featured (Cue) ──────────────────────── */
-
-    .featured {
-      display: block;
-      max-width: 720px;
-      margin: 0 auto 100px;
-      padding: 56px 48px;
-      background: var(--feature-bg);
-      color: var(--feature-ink);
-      border-radius: var(--radius);
-      text-align: center;
-      transition: transform 400ms ease, box-shadow 400ms ease;
-    }
-
-    .featured:hover {
-      transform: scale(1.012);
-      box-shadow: 0 16px 48px rgba(45, 74, 62, 0.25);
-    }
-
-    .label {
-      margin-bottom: 20px;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--secondary);
-    }
-
-    .featured .label {
-      color: rgba(250, 247, 243, 0.5);
-    }
-
-    .featured-media {
-      width: 100%;
-      border-radius: 8px;
-      margin-bottom: 28px;
-    }
-
-    .featured h2 {
-      font-size: clamp(36px, 5vw, 56px);
-      margin-bottom: 16px;
-    }
-
-    .featured p {
-      color: rgba(250, 247, 243, 0.7);
-      max-width: 38ch;
-      margin: 0 auto 16px;
-    }
-
-    .featured .features {
-      font-size: 14px;
-      letter-spacing: 0.02em;
-      margin: 24px auto;
-    }
-
-    .text-link {
-      display: inline-block;
-      margin-top: 8px;
-      color: var(--accent);
-      font-size: 17px;
-      transition: opacity 300ms ease;
-    }
-
-    .text-link:hover {
-      text-decoration: underline;
-    }
-
-    .featured .text-link {
-      color: var(--warm-amber);
-    }
-
-    /* ── Sections ─────────────────────────────── */
-
-    .section {
-      border-top: 1px solid var(--rule);
-      padding-top: 60px;
-      margin-bottom: 100px;
-    }
-
-    .section-head {
-      text-align: center;
-      max-width: 600px;
-      margin: 0 auto 40px;
-    }
-
-    .section-head .eyebrow {
-      margin-bottom: 12px;
-    }
-
-    .section-head h2 {
-      font-size: clamp(28px, 4vw, 40px);
-      margin-bottom: 12px;
-    }
-
-    .section-head p {
-      color: var(--secondary);
-    }
-
-    /* ── Project grid ─────────────────────────── */
-
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .project-card {
-      display: block;
-      background: var(--surface);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: 0 1px 3px rgba(44, 37, 32, 0.04);
-      transition: transform 400ms ease, box-shadow 400ms ease;
-    }
-
-    .project-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(44, 37, 32, 0.1);
-    }
-
-    .project-media {
-      aspect-ratio: 16 / 10;
-      overflow: hidden;
-      background: var(--surface);
-    }
-
-    .project-media img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .project-body {
-      padding: 24px;
-    }
-
-    .project-kicker {
-      margin-bottom: 8px;
-      color: var(--secondary);
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .project-body h3 {
-      font-size: 24px;
-      margin-bottom: 8px;
-      letter-spacing: -0.02em;
-    }
-
-    .project-body p {
-      color: var(--secondary);
-      font-size: 14px;
-      line-height: 1.43;
-    }
-
-    /* ── Archive ──────────────────────────────── */
-
-    .archive-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      border-top: 1px solid var(--rule);
-      padding-top: 60px;
-    }
-
-    .archive-card {
-      padding: 32px;
-      background: var(--surface);
-      border-radius: var(--radius);
-    }
-
-    .archive-card .eyebrow {
-      margin-bottom: 12px;
-    }
-
-    .archive-card h2 {
-      font-size: 28px;
-      margin-bottom: 12px;
-      letter-spacing: -0.02em;
-    }
-
-    .archive-card p {
-      color: var(--secondary);
-    }
-
-    .link-row {
-      margin-top: 20px;
-    }
-
-    .elsewhere-links {
-      list-style: none;
-      margin-top: 20px;
-    }
-
-    .elsewhere-links li + li {
-      margin-top: 12px;
-    }
-
-    .elsewhere-links a {
-      color: var(--accent);
-      transition: opacity 300ms ease;
-    }
-
-    .elsewhere-links a:hover {
-      text-decoration: underline;
-    }
-
-    /* ── Responsive ───────────────────────────── */
-
-    @media (max-width: 980px) {
-      .project-grid,
-      .archive-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .page {
-        width: min(var(--max), calc(100% - 40px));
-      }
-
-      .topbar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-        margin-bottom: 60px;
-      }
-
-      .hero {
-        text-align: left;
-        margin-bottom: 72px;
-      }
-
-      .lede {
-        margin-left: 0;
-        margin-right: 0;
-      }
-
-      .cta-row {
-        justify-content: flex-start;
-      }
-
-      .featured {
-        padding: 32px 24px;
-        text-align: left;
-        margin-bottom: 72px;
-      }
-
-      .featured p {
-        margin-left: 0;
-        margin-right: 0;
-      }
-
-      .section {
-        padding-top: 40px;
-        margin-bottom: 72px;
-      }
-
-      .section-head {
-        text-align: left;
-        margin-left: 0;
-      }
-    }
+    footer span { color: #4c515a; }
   </style>
 </head>
 <body>
-  <main class="page">
-    <header class="topbar">
-      <div>Kevin Showkat</div>
-      <nav>
-        <a href="#now">Now</a>
-        <a href="#tools">Tools</a>
-        <a href="#evals">Evals</a>
-        <a href="#archive">Archive</a>
-      </nav>
+  <div class="wrap">
+    <header>
+      <h1>kevin showkat</h1>
+      <p class="tag cursor">builds and ships software end to end — iOS, backend, infrastructure, release — with AI coding agents doing most of the typing.</p>
     </header>
 
-    <section class="hero">
-      <p class="eyebrow">Image-first experiments</p>
-      <h1>Editors, evals, and receipts.</h1>
-      <p class="lede">
-        I build tools for screenshot-native editing, reference-driven workflows, and repeatable visual experimentation.
-        Cue is the current flagship. Brood is the shipped predecessor. The rest of the portfolio covers creator tooling and
-        public image-model evals.
-      </p>
-      <div class="cta-row">
-        <a class="button" href="https://github.com/kevinshowkat/cue">Open Cue</a>
-        <a class="button-secondary" href="https://github.com/kevinshowkat" rel="me">GitHub</a>
-        <a class="button-secondary" href="https://www.linkedin.com/in/kshowkat/" rel="me">LinkedIn</a>
+    <section id="now">
+      <h2>now shipping</h2>
+
+      <div class="card">
+        <h3>meerkat</h3>
+        <p><b>the group chat with a score.</b> An iOS app where friends rate everyday stuff 0 to 10; you commit your score before you see anyone else's. Two-person passion project; I'm the technical half. SwiftUI at a 120Hz interaction budget, Node/Postgres on AWS.</p>
+        <p class="status">in app store review · 120+ testflight builds</p>
+        <p class="links">
+          <a href="https://github.com/kevinshowkat/meerkat-app">devlog</a>
+          <a href="https://github.com/kevinshowkat/meerkat-app/blob/main/notes/shimmer-free-scrolling.md">note: shimmer-free scrolling</a>
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>dispatch <span class="chip">a codename</span></h3>
+        <p>A control plane for AI-assisted customer acquisition, built for a client — their business; I build the software. One controlled workflow with human approval gates, not an agent swarm. Next.js/TypeScript, RDS Postgres behind a Lambda bridge.</p>
+        <p class="status">in production · revenue-generating</p>
+        <p class="links">
+          <a href="https://github.com/kevinshowkat/dispatch-devlog">devlog</a>
+          <a href="https://github.com/kevinshowkat/dispatch-devlog/blob/main/notes/the-bridge-is-a-contract.md">note: the bridge is a contract</a>
+        </p>
       </div>
     </section>
 
-    <a class="featured" id="now" href="https://github.com/kevinshowkat/cue">
-      <p class="label">In development</p>
-      <img
-        class="featured-media"
-        src="https://raw.githubusercontent.com/kevinshowkat/kevinshowkat/main/assets/cue_readme_fast.gif"
-        alt="Cue desktop workstation demo"
-      >
-      <h2>Cue</h2>
-      <p>
-        Image-first desktop design workstation for screenshot-native edits, design review, tool creation, and
-        exportable receipts.
-      </p>
-      <p class="features">Session tabs · Shared canvas · Design review · Tool creation · Receipts</p>
-      <p>
-        Public continuation of the in-progress codebase previously developed locally as Juggernaut.
-      </p>
-      <span class="text-link">View repository →</span>
-    </a>
+    <section id="tools">
+      <h2>desktop tools</h2>
 
-    <section class="section" id="tools">
-      <div class="section-head">
-        <p class="eyebrow">Shipped tools</p>
-        <h2>Execution before positioning.</h2>
-        <p>
-          The shipped work is still visible. Cue is not replacing proof of execution; it is the next layer on top of it.
-        </p>
+      <div class="card">
+        <h3>cue</h3>
+        <p>A desktop app for editing images and trying visual ideas quickly.</p>
+        <p class="links"><a href="https://github.com/kevinshowkat/cue">repository</a></p>
       </div>
 
-      <div class="project-grid">
-        <a class="project-card" href="https://github.com/kevinshowkat/brood">
-          <div class="project-media">
-            <img
-              src="https://raw.githubusercontent.com/kevinshowkat/kevinshowkat/main/assets/brood_demo_cut_20260214.gif"
-              alt="Brood workflow demo"
-            >
-          </div>
-          <div class="project-body">
-            <div class="project-kicker">Shipped predecessor</div>
-            <h3>Brood</h3>
-            <p>Reference-first AI image editing desktop for developers on macOS.</p>
-          </div>
-        </a>
-
-        <a class="project-card" href="https://github.com/kevinshowkat/room-edit-lab">
-          <div class="project-body">
-            <div class="project-kicker">Creator tooling</div>
-            <h3>room-edit-lab</h3>
-            <p>Room image edits, overlay generation, and vertical reel assembly from production creator workflows.</p>
-          </div>
-        </a>
-
-        <a class="project-card" href="https://github.com/kevinshowkat/param_forge">
-          <div class="project-media">
-            <img
-              src="https://raw.githubusercontent.com/kevinshowkat/kevinshowkat/main/assets/param_forge_demo_v2.gif"
-              alt="Param Forge demo"
-            >
-          </div>
-          <div class="project-body">
-            <div class="project-kicker">Experiment runner</div>
-            <h3>param_forge</h3>
-            <p>Terminal UI for image-model experiments, parameter sweeps, and reproducible receipts.</p>
-          </div>
-        </a>
-      </div>
+      <ul class="plain">
+        <li><a href="https://github.com/kevinshowkat/brood">brood</a> — an earlier desktop image editor that led to cue (macOS, Tauri, Rust)</li>
+        <li><a href="https://github.com/kevinshowkat/room-edit-lab">room-edit-lab</a> — room-photo edits, overlays, vertical video assembly</li>
+        <li><a href="https://github.com/kevinshowkat/param_forge">param_forge</a> — terminal harness for testing image models</li>
+      </ul>
     </section>
 
-    <section class="section" id="evals">
-      <div class="section-head">
-        <p class="eyebrow">Public evals</p>
-        <h2>Preference reports and methodology.</h2>
-        <p>
-          The portfolio is not only tooling. It also exposes public evidence about how image models behave in practice.
-        </p>
-      </div>
-
-      <div class="project-grid">
-        <a class="project-card" href="https://github.com/kevinshowkat/oscillo-vision-reports">
-          <div class="project-body">
-            <div class="project-kicker">Reports</div>
-            <h3>oscillo-vision-reports</h3>
-            <p>Public image-model preference reports with methodology notes, previews, and directional comparisons.</p>
-          </div>
-        </a>
-
-        <a class="project-card" href="https://github.com/kevinshowkat/kevinshowkat">
-          <div class="project-body">
-            <div class="project-kicker">Profile</div>
-            <h3>GitHub profile README</h3>
-            <p>The lightweight index for the same story: Cue now, shipped tools, evals, and a clean archive line.</p>
-          </div>
-        </a>
-
-        <a class="project-card" href="/llms.txt">
-          <div class="project-body">
-            <div class="project-kicker">Machine-readable</div>
-            <h3>llms.txt</h3>
-            <p>Project and profile references for agents that need the public surface in a compact text format.</p>
-          </div>
-        </a>
-      </div>
+    <section id="evals">
+      <h2>public evals</h2>
+      <ul class="plain">
+        <li><a href="https://github.com/kevinshowkat/oscillo-vision-reports">oscillo-vision-reports</a> — image-model comparisons with methodology</li>
+        <li><a href="/llms.txt">llms.txt</a> — machine-readable index of this site</li>
+      </ul>
     </section>
 
-    <div class="archive-grid" id="archive">
-      <section class="archive-card">
-        <p class="eyebrow">Archive</p>
-        <h2>superjumbo</h2>
-        <p>
-          Still public, but outside the main image-first portfolio story. It stays available as prior product work, not
-          as the current thesis.
-        </p>
-        <div class="link-row">
-          <a class="text-link" href="https://github.com/kevinshowkat/superjumbo">Open repository →</a>
-        </div>
-      </section>
+    <section id="elsewhere">
+      <h2>elsewhere</h2>
+      <ul class="plain">
+        <li><a href="https://github.com/kevinshowkat">github</a></li>
+        <li><a href="https://www.linkedin.com/in/kshowkat/">linkedin</a></li>
+        <li><a href="https://www.threads.com/@kevinshowkat">threads</a></li>
+        <li><a href="mailto:showkatkevin@gmail.com">showkatkevin@gmail.com</a></li>
+      </ul>
+    </section>
 
-      <section class="archive-card">
-        <p class="eyebrow">Elsewhere</p>
-        <h2>Find the work.</h2>
-        <p>
-          The public surface now points people to the current build, the shipped predecessors, and the evaluation trail.
-        </p>
-        <ul class="elsewhere-links">
-          <li><a href="https://github.com/kevinshowkat" rel="me">github.com/kevinshowkat</a></li>
-          <li><a href="https://www.linkedin.com/in/kshowkat/" rel="me">linkedin.com/in/kshowkat</a></li>
-          <li><a href="/llms-full.txt">llms-full.txt</a></li>
-        </ul>
-      </section>
-    </div>
-  </main>
+    <footer>
+      <span>© 2026 kevin showkat</span>
+      <span>static html. no trackers.</span>
+      <span>west hollywood, ca</span>
+    </footer>
+  </div>
 </body>
 </html>

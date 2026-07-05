@@ -10,6 +10,18 @@
 
 ## Public Projects
 
+- [meerkat-app](https://github.com/kevinshowkat/meerkat-app)
+  - Engineering devlog for Meerkat, a closed-source iOS social app (the group chat with a score).
+  - Start here: <https://github.com/kevinshowkat/meerkat-app#readme>
+
+- [dispatch-devlog](https://github.com/kevinshowkat/dispatch-devlog)
+  - Engineering devlog for a customer-acquisition control plane (Dispatch is a codename; the app is private).
+  - Start here: <https://github.com/kevinshowkat/dispatch-devlog#readme>
+
+- [Cue](https://github.com/kevinshowkat/cue)
+  - Image-first desktop workstation for canvas editing and reproducible exports.
+  - Start here: <https://github.com/kevinshowkat/cue#readme>
+
 - [Brood](https://github.com/kevinshowkat/brood)
   - Promptless, reference-first AI image generation and editing for developers.
   - Start here: <https://github.com/kevinshowkat/brood#readme>

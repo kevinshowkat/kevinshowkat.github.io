@@ -43,19 +43,22 @@
   <style>
     :root {
       color-scheme: dark;
-      --bg: #0b0c0f;
-      --panel: #101218;
+      --bg: #0a0b0e;
+      --panel: #10131a;
+      --bar: #1a1f2a;
       --ink: #d9dbd6;
       --mute: #7c8188;
       --line: #262a33;
       --acid: #c8ff4d;
       --heat: #ff5d3a;
-      --max: 880px;
+      --cobalt: #6d84ff;
+      --chrome-a: #f4f6fb;
+      --chrome-b: #8d96ad;
+      --max: 900px;
       --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -67,141 +70,238 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* faint scanlines */
+    /* CRT scanlines */
     body::before {
       content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background: repeating-linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.014) 0px,
-        rgba(255, 255, 255, 0.014) 1px,
-        transparent 1px,
-        transparent 3px
-      );
-      z-index: 2;
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 2;
+      background: repeating-linear-gradient(180deg,
+        rgba(255,255,255,.014) 0 1px, transparent 1px 3px);
     }
 
-    a { color: var(--acid); text-decoration: none; border-bottom: 1px solid rgba(200, 255, 77, .35); }
+    a { color: var(--acid); text-decoration: none; border-bottom: 1px solid rgba(200,255,77,.35); }
     a:hover { color: var(--bg); background: var(--acid); border-bottom-color: var(--acid); }
 
-    .wrap { max-width: var(--max); margin: 0 auto; padding: 72px 20px 40px; position: relative; z-index: 3; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 46px 20px 40px; position: relative; z-index: 3; }
 
-    header h1 {
+    /* ── ticker ── */
+    .ticker {
+      overflow: hidden; white-space: nowrap;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      font-size: 12px; letter-spacing: .12em;
+      color: var(--mute);
+      margin-bottom: 34px;
+      user-select: none;
+    }
+    .ticker__inner {
+      display: inline-block; padding: 7px 0;
+      animation: ticker 26s linear infinite;
+    }
+    .ticker b { color: var(--acid); font-weight: 600; }
+    .ticker i { color: var(--heat); font-style: normal; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @media (prefers-reduced-motion: reduce) { .ticker__inner { animation: none; } }
+
+    /* ── window chrome ── */
+    .win {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      margin-bottom: 18px;
+      box-shadow: 4px 4px 0 rgba(0,0,0,.45);
+    }
+    .win__bar {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--bar);
+      border-bottom: 1px solid var(--line);
+      padding: 6px 10px;
+      font-size: 11.5px; letter-spacing: .1em; color: var(--mute);
+      text-transform: lowercase;
+    }
+    .win__bar .dots { display: inline-flex; gap: 5px; margin-right: 2px; }
+    .win__bar .dots i {
+      width: 9px; height: 9px; border: 1px solid var(--line); display: inline-block;
+    }
+    .win__bar .dots i:nth-child(1) { background: var(--heat); }
+    .win__bar .dots i:nth-child(2) { background: var(--acid); }
+    .win__bar .dots i:nth-child(3) { background: var(--cobalt); }
+    .win__bar .x { margin-left: auto; color: var(--mute); }
+    .win__body { padding: 20px 22px; }
+
+    header.win .win__body { padding: 26px 22px; }
+    h1 {
       font-size: clamp(30px, 6vw, 44px);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: #f2f3ef;
-      text-shadow: 1px 0 0 rgba(255, 93, 58, .55), -1px 0 0 rgba(77, 210, 255, .45);
+      font-weight: 700; letter-spacing: -0.02em; color: #f2f3ef;
+      text-shadow: 1px 0 0 rgba(255,93,58,.55), -1px 0 0 rgba(77,210,255,.45);
     }
-
-    header .tag { color: var(--mute); margin-top: 10px; max-width: 62ch; }
-    header .tag b { color: var(--ink); font-weight: 600; }
-
-    .cursor::after {
-      content: "▌";
-      color: var(--acid);
-      animation: blink 1.15s steps(1) infinite;
-    }
+    .tag { color: var(--mute); margin-top: 10px; max-width: 62ch; }
+    .cursor::after { content: "▌"; color: var(--acid); animation: blink 1.15s steps(1) infinite; }
     @keyframes blink { 50% { opacity: 0; } }
     @media (prefers-reduced-motion: reduce) { .cursor::after { animation: none; } }
 
-    section { margin-top: 56px; }
-
+    section { margin-top: 44px; }
     h2 {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--mute);
-      text-transform: lowercase;
-      letter-spacing: .14em;
-      margin-bottom: 18px;
+      font-size: 13px; font-weight: 600; color: var(--mute);
+      text-transform: lowercase; letter-spacing: .14em; margin-bottom: 16px;
     }
     h2::before { content: "[ "; color: var(--heat); }
     h2::after  { content: " ]"; color: var(--heat); }
 
-    .card {
-      border: 1px solid var(--line);
-      background: var(--panel);
-      padding: 20px 22px;
-      margin-bottom: 14px;
+    /* ── vintage wordmarks ── */
+    .mark { font-weight: 800; line-height: 1; display: inline-block; }
+
+    /* meerkat: IBM-slice stripes in cobalt */
+    .mark--meerkat {
+      font-size: 40px; letter-spacing: .01em;
+      background: repeating-linear-gradient(180deg,
+        var(--cobalt) 0 4px, transparent 4px 7px);
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent;
     }
 
-    .card h3 { font-size: 16px; color: #f2f3ef; font-weight: 700; }
-    .card h3 .chip {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--heat);
-      border: 1px solid var(--heat);
-      padding: 1px 7px;
-      margin-left: 10px;
-      letter-spacing: .08em;
-      vertical-align: 2px;
-      white-space: nowrap;
+    /* dispatch: heat block with worm-ish rounding */
+    .mark--dispatch {
+      font-size: 34px; letter-spacing: .06em; color: var(--heat);
+      border: 3px solid var(--heat); border-radius: 999px;
+      padding: 4px 18px 6px;
     }
-    .card p { color: var(--mute); margin-top: 8px; }
+
+    /* cue: chrome gradient */
+    .mark--cue {
+      font-size: 38px; letter-spacing: .12em;
+      background: linear-gradient(180deg,
+        var(--chrome-a) 0%, var(--chrome-b) 46%, #3c4356 52%, var(--chrome-a) 100%);
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent;
+    }
+
+    .est { font-size: 10.5px; letter-spacing: .3em; color: var(--mute); text-transform: uppercase; margin-top: 6px; }
+    .tm { font-size: 55%; vertical-align: super; }
+
+    .card p { color: var(--mute); margin-top: 12px; }
     .card p b { color: var(--ink); font-weight: 600; }
-    .card .links { margin-top: 12px; font-size: 13.5px; }
-    .card .links a { margin-right: 18px; }
-
+    .links { margin-top: 12px; font-size: 13.5px; }
+    .links a { margin-right: 18px; }
     .status { color: var(--acid); font-size: 12.5px; letter-spacing: .06em; margin-top: 10px; }
     .status::before { content: "▲ "; color: var(--heat); }
+    .chip {
+      font-size: 11px; font-weight: 600; color: var(--heat);
+      border: 1px solid var(--heat); padding: 1px 7px; margin-left: 10px;
+      letter-spacing: .08em; vertical-align: 6px; white-space: nowrap;
+    }
 
     ul.plain { list-style: none; }
     ul.plain li { padding: 7px 0; border-bottom: 1px dashed var(--line); color: var(--mute); }
     ul.plain li:last-child { border-bottom: 0; }
 
+    /* ── logo stickers, slapped on the windows ── */
+    .win { position: relative; }
+    .sticker {
+      position: absolute;
+      transform: rotate(var(--r, 0deg));
+      animation: bob 5.6s ease-in-out infinite;
+      animation-delay: var(--d, 0s);
+      z-index: 4;
+    }
+    .sticker img { height: var(--h, 38px); width: auto; max-width: 110px; object-fit: contain; display: block; }
+    .sticker img.inv { filter: brightness(0) invert(1); opacity: .92; }
+    @keyframes bob { 0%,100% { translate: 0 0; } 50% { translate: 0 -4px; } }
+    @media (prefers-reduced-motion: reduce) { .sticker { animation: none; } }
+    @media (max-width: 700px) {
+      .sticker { position: static; display: inline-flex; margin: 10px 10px 0 0; transform: rotate(var(--r,0deg)); }
+      .win__body { padding-right: 22px !important; }
+    }
+    .win__body { padding-right: 110px; }
+    header.win .win__body { padding-right: 130px; }
+
+    /* ── checkerboard trim + counter ── */
+    .checker {
+      height: 14px; margin-top: 64px;
+      background: repeating-conic-gradient(var(--acid) 0% 25%, transparent 0% 50%) 0 0 / 14px 14px;
+      opacity: .5;
+    }
     footer {
-      margin-top: 72px;
-      padding-top: 18px;
-      border-top: 1px solid var(--line);
-      color: var(--mute);
-      font-size: 12.5px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 22px;
+      padding-top: 16px; color: var(--mute); font-size: 12.5px;
+      display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px;
     }
     footer span { color: #4c515a; }
+    .counter { display: inline-flex; gap: 2px; margin-left: 4px; }
+    .counter b {
+      background: #000; color: var(--acid); border: 1px solid var(--line);
+      font-size: 11px; padding: 0 4px; font-weight: 600;
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <header>
-      <h1>kevin showkat</h1>
-      <p class="tag cursor">builds and ships software end to end — iOS, backend, infrastructure, release — with AI coding agents doing most of the typing.</p>
+
+    <div class="ticker" aria-hidden="true"><div class="ticker__inner">
+      <b>MEERKAT</b> — live on the app store <i>✦</i> <b>DISPATCH</b> — in production, revenue-generating <i>✦</i> <b>CUE</b> — image-first desktop workstation <i>✦</i> 120+ testflight builds <i>✦</i> static html, no trackers <i>✦</i>&nbsp;
+      <b>MEERKAT</b> — live on the app store <i>✦</i> <b>DISPATCH</b> — in production, revenue-generating <i>✦</i> <b>CUE</b> — image-first desktop workstation <i>✦</i> 120+ testflight builds <i>✦</i> static html, no trackers <i>✦</i>&nbsp;
+    </div></div>
+
+    <header class="win">
+      <div class="win__bar"><span class="dots"><i></i><i></i><i></i></span> kevinshowkat.exe <span class="x">✕</span></div>
+      <div class="win__body">
+        <h1>kevin showkat</h1>
+        <p class="tag">builds and ships software end to end — iOS, backend, infrastructure, release. modern toolbox, old-fashioned accountability: everything specced, reviewed, and verified before it ships.</p>
+        <p class="tag cursor" style="margin-top:4px">receipts over vibes.</p>
+        <figure class="sticker" title="claude — in the toolbox" style="--r:7deg; --d:-1.2s; --h:46px; top:-14px; right:64px;"><img src="assets/logos/anthropic-white.svg" alt="Anthropic — Claude, in the toolbox"></figure>
+        <figure class="sticker" title="codex · agents sdk" style="--r:-5deg; --d:-2.2s; --h:30px; bottom:38px; right:36px;"><img class="inv" src="assets/logos/openai.svg" alt="OpenAI — Codex and the Agents SDK"></figure>
+        <figure class="sticker" title="receipts live here" style="--r:-9deg; --d:-3.4s; --h:38px; bottom:-14px; right:200px;"><img src="assets/logos/github-white.svg" alt="GitHub — receipts live here"></figure>
+      </div>
     </header>
 
     <section id="now">
       <h2>now shipping</h2>
 
-      <div class="card">
-        <h3>meerkat</h3>
-        <p><b>the group chat with a score.</b> An iOS app where friends rate everyday stuff 0 to 10; you commit your score before you see anyone else's. Two-person passion project; I'm the technical half. SwiftUI at a 120Hz interaction budget, Node/Postgres on AWS.</p>
-        <p class="status">in app store review · 120+ testflight builds</p>
-        <p class="links">
-          <a href="https://github.com/kevinshowkat/meerkat-app">devlog</a>
-          <a href="https://github.com/kevinshowkat/meerkat-app/blob/main/notes/shimmer-free-scrolling.md">note: shimmer-free scrolling</a>
-        </p>
+      <div class="win card">
+        <div class="win__bar"><span class="dots"><i></i><i></i><i></i></span> meerkat.app <span class="x">✕</span></div>
+        <div class="win__body">
+          <span class="mark mark--meerkat">MEERKAT</span>
+          <div class="est">est. 2026 · los angeles</div>
+          <figure class="sticker" title="ios · swiftui · 120hz" style="--r:-8deg; --d:-.6s; --h:48px; top:-16px; right:38px;"><img src="assets/logos/apple-rainbow.svg" alt="Apple — iOS, SwiftUI at 120Hz"></figure>
+          <figure class="sticker" title="postgres — both backends" style="--r:6deg; --d:-2.8s; --h:34px; bottom:76px; right:30px;"><img src="assets/logos/postgresql.svg" alt="PostgreSQL — both backends"></figure>
+          <p><b>the group chat with a score.</b> An iOS app where friends rate everyday stuff 0 to 10; you commit your score before you see anyone else's. Two-person passion project; I'm the technical half. SwiftUI at a 120Hz interaction budget, Node/Postgres on AWS.</p>
+          <p class="status">live on the app store · current release in review · 120+ builds</p>
+          <p class="links">
+            <a href="https://github.com/kevinshowkat/meerkat-app">devlog</a>
+            <a href="https://github.com/kevinshowkat/meerkat-app/blob/main/notes/shimmer-free-scrolling.md">note: shimmer-free scrolling</a>
+          </p>
+        </div>
       </div>
 
-      <div class="card">
-        <h3>dispatch <span class="chip">a codename</span></h3>
-        <p>A control plane for AI-assisted customer acquisition, built for a client — their business; I build the software. One controlled workflow with human approval gates, not an agent swarm. Next.js/TypeScript, RDS Postgres behind a Lambda bridge.</p>
-        <p class="status">in production · revenue-generating</p>
-        <p class="links">
-          <a href="https://github.com/kevinshowkat/dispatch-devlog">devlog</a>
-          <a href="https://github.com/kevinshowkat/dispatch-devlog/blob/main/notes/the-bridge-is-a-contract.md">note: the bridge is a contract</a>
-        </p>
+      <div class="win card">
+        <div class="win__bar"><span class="dots"><i></i><i></i><i></i></span> dispatch.exe <span class="x">✕</span></div>
+        <div class="win__body">
+          <span class="mark mark--dispatch">DISPATCH</span><span class="chip">a codename</span>
+          <div class="est">controlled workflow · human approval gates</div>
+          <figure class="sticker" title="aws — app runner · rds · s3 · lambda" style="--r:5deg; --d:-1.9s; --h:36px; top:-14px; right:64px;"><img class="inv" src="assets/logos/aws.svg" alt="AWS — App Runner, RDS, S3, Lambda"></figure>
+          <figure class="sticker" title="node 22" style="--r:-7deg; --d:-4.1s; --h:32px; bottom:20px; right:34px;"><img src="assets/logos/nodejs-green.svg" alt="Node.js 22"></figure>
+          <figure class="sticker" title="gemini — prospect discovery" style="--r:4deg; --d:-2.5s; --h:36px; bottom:104px; right:30px;"><img src="assets/logos/google-retro.svg" alt="Google — Gemini prospect discovery"></figure>
+          <figure class="sticker" title="vercel — hosting" style="--r:-6deg; --d:-3.2s; --h:26px; top:96px; right:118px;"><img src="assets/logos/vercel-white.svg" alt="Vercel — hosting"></figure>
+          <p><b>customer acquisition, under control.</b> An AI-assisted outreach control plane built for a client — their business; I build the software. One controlled workflow with bounded LLM steps, not an agent swarm. Next.js/TypeScript, RDS Postgres behind a Lambda bridge.</p>
+          <p class="status">in production · revenue-generating</p>
+          <p class="links">
+            <a href="https://github.com/kevinshowkat/dispatch-devlog">devlog</a>
+            <a href="https://github.com/kevinshowkat/dispatch-devlog/blob/main/notes/the-bridge-is-a-contract.md">note: the bridge is a contract</a>
+          </p>
+        </div>
       </div>
     </section>
 
     <section id="tools">
       <h2>desktop tools</h2>
 
-      <div class="card">
-        <h3>cue</h3>
-        <p>A desktop app for editing images and trying visual ideas quickly.</p>
-        <p class="links"><a href="https://github.com/kevinshowkat/cue">repository</a></p>
+      <div class="win card">
+        <div class="win__bar"><span class="dots"><i></i><i></i><i></i></span> cue.dmg <span class="x">✕</span></div>
+        <div class="win__body">
+          <figure class="sticker" title="rust · tauri · macos" style="--r:6deg; --d:-1.4s; --h:34px; top:-14px; right:40px;"><img src="assets/logos/rust-white.svg" alt="Rust — Cue and Brood desktop apps"></figure>
+          <span class="mark mark--cue">CUE</span>
+          <div class="est">image-first desktop workstation</div>
+          <p>A desktop app for editing images and trying visual ideas quickly.</p>
+          <p class="links"><a href="https://github.com/kevinshowkat/cue">repository</a></p>
+        </div>
       </div>
 
       <ul class="plain">
@@ -211,10 +311,11 @@
       </ul>
     </section>
 
-    <section id="evals">
-      <h2>public evals</h2>
+    <section id="receipts">
+      <h2>receipts</h2>
       <ul class="plain">
         <li><a href="https://github.com/kevinshowkat/oscillo-vision-reports">oscillo-vision-reports</a> — image-model comparisons with methodology</li>
+        <li><a href="https://github.com/kevinshowkat/meerkat-app/tree/main/notes">meerkat engineering notes</a> · <a href="https://github.com/kevinshowkat/dispatch-devlog/tree/main/notes">dispatch engineering notes</a></li>
         <li><a href="/llms.txt">llms.txt</a> — machine-readable index of this site</li>
       </ul>
     </section>
@@ -229,10 +330,13 @@
       </ul>
     </section>
 
+    <div class="checker" aria-hidden="true"></div>
     <footer>
       <span>© 2026 kevin showkat</span>
       <span>static html. no trackers.</span>
       <span>west hollywood, ca</span>
+      <span>best viewed at any resolution</span>
+      <span>you are visitor <span class="counter"><b>0</b><b>0</b><b>1</b><b>3</b><b>3</b><b>7</b></span></span>
     </footer>
   </div>
 </body>

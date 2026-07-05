@@ -196,6 +196,8 @@
 
     /* ── logo stickers, slapped on the windows ── */
     .win { position: relative; }
+    .stickerfield { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
+    .stickerfield .sticker { pointer-events: auto; }
     .sticker {
       position: absolute;
       transform: rotate(var(--r, 0deg));
@@ -209,6 +211,7 @@
     @media (prefers-reduced-motion: reduce) { .sticker { animation: none; } }
     @media (max-width: 700px) {
       .sticker { position: static; display: inline-flex; margin: 10px 10px 0 0; transform: rotate(var(--r,0deg)); }
+      .stickerfield { position: static; margin: 12px 0 0; }
       .win__body { padding-right: 22px !important; }
     }
     .win__body { padding-right: 110px; }
@@ -246,11 +249,22 @@
         <h1>kevin showkat</h1>
         <p class="tag">builds and ships software end to end — iOS, backend, infrastructure, release. modern toolbox, old-fashioned accountability: everything specced, reviewed, and verified before it ships.</p>
         <p class="tag cursor" style="margin-top:4px">receipts over vibes.</p>
-        <figure class="sticker" title="claude — in the toolbox" style="--r:7deg; --d:-1.2s; --h:46px; top:-14px; right:64px;"><img src="assets/logos/anthropic-white.svg" alt="Anthropic — Claude, in the toolbox"></figure>
-        <figure class="sticker" title="codex · agents sdk" style="--r:-5deg; --d:-2.2s; --h:30px; bottom:38px; right:36px;"><img class="inv" src="assets/logos/openai.svg" alt="OpenAI — Codex and the Agents SDK"></figure>
-        <figure class="sticker" title="receipts live here" style="--r:-9deg; --d:-3.4s; --h:38px; bottom:-14px; right:200px;"><img src="assets/logos/github-white.svg" alt="GitHub — receipts live here"></figure>
       </div>
     </header>
+    <div class="stickerfield">
+      <figure class="sticker" title="claude — in the toolbox" style="--r:7deg; --d:-1.2s; --h:46px; top:3.5%; right:84px;"><img src="assets/logos/anthropic-white.svg" alt="Anthropic — Claude, in the toolbox"></figure>
+      <figure class="sticker" title="postgres" style="--r:-6deg; --d:-2.8s; --h:34px; top:11%; right:50px;"><img src="assets/logos/postgresql.svg" alt="PostgreSQL"></figure>
+      <figure class="sticker" title="aws — app runner · rds · s3 · lambda" style="--r:5deg; --d:-1.9s; --h:36px; top:18.5%; right:116px;"><img class="inv" src="assets/logos/aws.svg" alt="AWS — App Runner, RDS, S3, Lambda"></figure>
+      <figure class="sticker" title="ios · swiftui" style="--r:-8deg; --d:-.6s; --h:48px; top:26%; right:54px;"><img src="assets/logos/apple-rainbow.svg" alt="Apple — iOS, SwiftUI"></figure>
+      <figure class="sticker" title="stripe" style="--r:8deg; --d:-.9s; --h:28px; top:33.5%; right:60px;"><img src="assets/logos/stripe.svg" alt="Stripe"></figure>
+      <figure class="sticker" title="receipts live here" style="--r:-9deg; --d:-3.4s; --h:38px; top:41%; right:130px;"><img src="assets/logos/github-white.svg" alt="GitHub — receipts live here"></figure>
+      <figure class="sticker" title="gemini" style="--r:4deg; --d:-2.5s; --h:36px; top:48.5%; right:50px;"><img src="assets/logos/google-retro.svg" alt="Google — Gemini"></figure>
+      <figure class="sticker" title="rust · tauri · macos" style="--r:-6deg; --d:-1.4s; --h:34px; top:56%; right:112px;"><img src="assets/logos/rust-white.svg" alt="Rust — desktop apps"></figure>
+      <figure class="sticker" title="codex · agents sdk" style="--r:5deg; --d:-2.2s; --h:30px; top:63.5%; right:56px;"><img class="inv" src="assets/logos/openai.svg" alt="OpenAI — Codex and the Agents SDK"></figure>
+      <figure class="sticker" title="square, inc." style="--r:-5deg; --d:-3.8s; --h:18px; top:71%; right:120px;"><img class="inv" src="assets/logos/square.svg" alt="Square"></figure>
+      <figure class="sticker" title="vercel — hosting" style="--r:6deg; --d:-3.2s; --h:26px; top:78.5%; right:64px;"><img src="assets/logos/vercel-white.svg" alt="Vercel — hosting"></figure>
+      <figure class="sticker" title="node 22" style="--r:-7deg; --d:-4.1s; --h:32px; top:86%; right:104px;"><img src="assets/logos/nodejs-green.svg" alt="Node.js 22"></figure>
+    </div>
 
     <section id="now">
       <h2>now shipping</h2>
@@ -260,8 +274,6 @@
         <div class="win__body">
           <span class="mark mark--meerkat">MEERKAT</span>
           <div class="est">est. 2026 · los angeles</div>
-          <figure class="sticker" title="ios · swiftui · 120hz" style="--r:-8deg; --d:-.6s; --h:48px; top:-16px; right:38px;"><img src="assets/logos/apple-rainbow.svg" alt="Apple — iOS, SwiftUI at 120Hz"></figure>
-          <figure class="sticker" title="postgres — both backends" style="--r:6deg; --d:-2.8s; --h:34px; bottom:76px; right:30px;"><img src="assets/logos/postgresql.svg" alt="PostgreSQL — both backends"></figure>
           <p><b>the group chat with a score.</b> An iOS app where friends rate everyday stuff 0 to 10; you commit your score before you see anyone else's. Two-person passion project; I'm the technical half. SwiftUI at a 120Hz interaction budget, Node/Postgres on AWS.</p>
           <p class="status">live on the app store · current release in review · 120+ builds</p>
           <p class="links">
@@ -276,10 +288,6 @@
         <div class="win__body">
           <span class="mark mark--dispatch">DISPATCH</span><span class="chip">a codename</span>
           <div class="est">controlled workflow · human approval gates</div>
-          <figure class="sticker" title="aws — app runner · rds · s3 · lambda" style="--r:5deg; --d:-1.9s; --h:36px; top:-14px; right:64px;"><img class="inv" src="assets/logos/aws.svg" alt="AWS — App Runner, RDS, S3, Lambda"></figure>
-          <figure class="sticker" title="node 22" style="--r:-7deg; --d:-4.1s; --h:32px; bottom:20px; right:34px;"><img src="assets/logos/nodejs-green.svg" alt="Node.js 22"></figure>
-          <figure class="sticker" title="gemini — prospect discovery" style="--r:4deg; --d:-2.5s; --h:36px; bottom:104px; right:30px;"><img src="assets/logos/google-retro.svg" alt="Google — Gemini prospect discovery"></figure>
-          <figure class="sticker" title="vercel — hosting" style="--r:-6deg; --d:-3.2s; --h:26px; top:96px; right:118px;"><img src="assets/logos/vercel-white.svg" alt="Vercel — hosting"></figure>
           <p><b>customer acquisition, under control.</b> An AI-assisted outreach control plane built for a client — their business; I build the software. One controlled workflow with bounded LLM steps, not an agent swarm. Next.js/TypeScript, RDS Postgres behind a Lambda bridge.</p>
           <p class="status">in production · revenue-generating</p>
           <p class="links">
@@ -296,7 +304,6 @@
       <div class="win card">
         <div class="win__bar"><span class="dots"><i></i><i></i><i></i></span> cue.dmg <span class="x">✕</span></div>
         <div class="win__body">
-          <figure class="sticker" title="rust · tauri · macos" style="--r:6deg; --d:-1.4s; --h:34px; top:-14px; right:40px;"><img src="assets/logos/rust-white.svg" alt="Rust — Cue and Brood desktop apps"></figure>
           <span class="mark mark--cue">CUE</span>
           <div class="est">image-first desktop workstation</div>
           <p>A desktop app for editing images and trying visual ideas quickly.</p>

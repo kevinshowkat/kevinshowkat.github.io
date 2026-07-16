@@ -14,6 +14,10 @@
   - Engineering devlog for Meerkat, a closed-source iOS social app (the group chat with a score).
   - Start here: <https://github.com/kevinshowkat/meerkat-app#readme>
 
+- [Sidebop](https://sidebop.com)
+  - Native iOS guide to source-backed things to do soon in Los Angeles, with personalized lanes, parking guidance, saves, sharing, and a recommendation inbox.
+  - Status: iOS client in development; web guide live.
+
 - [dispatch-devlog](https://github.com/kevinshowkat/dispatch-devlog)
   - Engineering devlog for a customer-acquisition control plane (Dispatch is a codename; the app is private).
   - Start here: <https://github.com/kevinshowkat/dispatch-devlog#readme>
@@ -41,6 +45,6 @@
 
 ## Notes
 
-- This site is an index. Code and primary docs live in linked repositories.
-- Prefer repository README files, releases, and commit history for current status.
+- This site is an index. Follow each project link for the public product, repository, or primary docs.
+- Prefer linked product sites, repository README files, releases, and commit history for current status.
 - Expanded version: <https://kevinshowkat.github.io/llms-full.txt>

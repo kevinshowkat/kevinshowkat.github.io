@@ -6,7 +6,7 @@
   <title>Kevin Showkat</title>
   <meta
     name="description"
-    content="Kevin Showkat builds and ships software end to end: Meerkat (iOS social), a customer-acquisition control plane, and desktop tools for visual AI."
+    content="Kevin Showkat builds and ships software end to end: Sidebop and Meerkat on iOS, a customer-acquisition control plane, and desktop tools for visual AI."
   >
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://kevinshowkat.github.io/">
@@ -22,7 +22,7 @@
   <meta property="og:title" content="Kevin Showkat">
   <meta
     property="og:description"
-    content="Ships software end to end: Meerkat, a customer-acquisition control plane, and desktop tools for visual AI."
+    content="Ships software end to end: Sidebop and Meerkat on iOS, a customer-acquisition control plane, and desktop tools for visual AI."
   >
   <meta property="og:url" content="https://kevinshowkat.github.io/">
 
@@ -30,7 +30,7 @@
   <meta name="twitter:title" content="Kevin Showkat">
   <meta
     name="twitter:description"
-    content="Ships software end to end: Meerkat, a customer-acquisition control plane, and desktop tools for visual AI."
+    content="Ships software end to end: Sidebop and Meerkat on iOS, a customer-acquisition control plane, and desktop tools for visual AI."
   >
 
   <script type="application/ld+json">
@@ -165,6 +165,15 @@
       color: transparent;
     }
 
+    /* sidebop: LA-night marquee in acid + mint */
+    .mark--sidebop {
+      font-size: 38px; letter-spacing: .06em;
+      background: linear-gradient(180deg, var(--acid) 0 62%, #73d99c 62% 100%);
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent;
+      filter: drop-shadow(3px 3px 0 #173d35);
+    }
+
     /* dispatch: heat block with worm-ish rounding */
     .mark--dispatch {
       font-size: 34px; letter-spacing: .06em; color: var(--heat);
@@ -245,8 +254,8 @@
   <div class="wrap">
 
     <div class="ticker" aria-hidden="true"><div class="ticker__inner">
-      <b>MEERKAT</b> — live on the app store <i>✦</i> <b>DISPATCH</b> — in production, revenue-generating <i>✦</i> <b>CUE</b> — image-first desktop workstation <i>✦</i> 120+ testflight builds <i>✦</i> static html <i>✦</i>&nbsp;
-      <b>MEERKAT</b> — live on the app store <i>✦</i> <b>DISPATCH</b> — in production, revenue-generating <i>✦</i> <b>CUE</b> — image-first desktop workstation <i>✦</i> 120+ testflight builds <i>✦</i> static html <i>✦</i>&nbsp;
+      <b>MEERKAT</b> — live on the app store <i>✦</i> <b>SIDEBOP</b> — source-backed LA plans <i>✦</i> <b>DISPATCH</b> — in production, revenue-generating <i>✦</i> <b>CUE</b> — image-first desktop workstation <i>✦</i> 120+ testflight builds <i>✦</i> static html <i>✦</i>&nbsp;
+      <b>MEERKAT</b> — live on the app store <i>✦</i> <b>SIDEBOP</b> — source-backed LA plans <i>✦</i> <b>DISPATCH</b> — in production, revenue-generating <i>✦</i> <b>CUE</b> — image-first desktop workstation <i>✦</i> 120+ testflight builds <i>✦</i> static html <i>✦</i>&nbsp;
     </div></div>
 
     <header class="win">
@@ -286,6 +295,17 @@
             <a href="https://github.com/kevinshowkat/meerkat-app">devlog</a>
             <a href="https://github.com/kevinshowkat/meerkat-app/blob/main/notes/shimmer-free-scrolling.md">note: shimmer-free scrolling</a>
           </p>
+        </div>
+      </div>
+
+      <div class="win card">
+        <div class="win__bar"><span class="dots"><i></i><i></i><i></i></span> sidebop.ipa <span class="x">✕</span></div>
+        <div class="win__body">
+          <span class="mark mark--sidebop">SIDEBOP</span>
+          <div class="est">source-backed la plans · native ios</div>
+          <p><b>worth stepping out for.</b> A native iPhone guide to source-backed things to do soon in LA, with personalized lanes, venue-aware parking guidance, saves, sharing, and a recommendation inbox that keeps scouting the city. SwiftUI client with a Node/Postgres account and recommendation service.</p>
+          <p class="status">iOS client in development · web guide live</p>
+          <p class="links"><a href="https://sidebop.com">open sidebop</a></p>
         </div>
       </div>
 
